@@ -1,0 +1,66 @@
+/* *
+ * Colors
+ * -------------------------------------------------------------------------- */
+
+:root {
+	--vp-c-white: #ffffff;
+	--vp-c-black: #000000;
+	--vp-c-brand-1: #005d8f;
+	--vp-c-brand-2: #005d8f;
+	/* fix contrast on gray cards: used by --vp-c-text-2 */
+	/* fix contrast: lang name on gray code block */
+	--vp-c-text-3: rgba(180, 180, 180, 0.7);
+}
+
+.dark {
+	/* fix contrast on gray cards: check the same above (this is the default) */
+	/* fix lang name: check the same above (this is the default) */
+	--vp-c-text-3: rgba(235, 235, 235, 0.38);
+}
+
+/**
+   * Component: Button
+   * -------------------------------------------------------------------------- */
+
+:root {
+	--vp-button-brand-border: var(--vp-c-brand-1);
+	--vp-button-brand-text: var(--vp-c-white);
+	--vp-button-brand-bg: var(--vp-c-brand-1);
+	--vp-button-brand-hover-border: var(--vp-c-brand-1);
+	--vp-button-brand-hover-text: var(--vp-c-white);
+	--vp-button-brand-hover-bg: var(--vp-c-brand-1);
+	--vp-button-brand-active-border: var(--vp-c-brand-1);
+	--vp-button-brand-active-text: var(--vp-c-white);
+	--vp-button-brand-active-bg: var(--vp-button-brand-bg);
+}
+
+/**
+   * Component: Home
+   * -------------------------------------------------------------------------- */
+
+:root {
+	--vp-home-hero-name-color: transparent;
+	--vp-home-hero-name-background: -webkit-linear-gradient(120deg, #005d8f 40%, #4fc4d8);
+	--vp-home-hero-image-background-image: linear-gradient(-45deg, #8d73bf90 30%, #d6c0e890);
+	--vp-home-hero-image-filter: blur(30px);
+}
+
+@media (min-width: 640px) {
+	:root {
+		--vp-home-hero-image-filter: blur(56px);
+	}
+}
+
+@media (min-width: 960px) {
+	:root {
+		--vp-home-hero-image-filter: blur(72px);
+	}
+}
+
+/**
+   * Component: Algolia
+   * -------------------------------------------------------------------------- */
+
+.DocSearch {
+	--docsearch-primary-color: var(--vp-c-brand-1) !important;
+}

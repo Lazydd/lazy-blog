@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<input type="text" placeholder="请输入websocket地址" class="input" />
+		(websocket跨域问题自行解决，websocket地址需要wss，)
+		<button class="ws">连接ws</button>
+		<button class="audio">开始通话</button>
+		<p class="title"></p>
+		<script>
+			const wsButton = document.querySelector('.ws');
+			const audioButton = document.querySelector('.audio');
+			const title = document.querySelector('.title');
+			const input = document.querySelector('.input');
+			let ws = null,
+				isConnected = false;
+			let buffer = [],
+				size = 0,
+				context = null,
+				audioInput = null,
+				recorder = null,
+				oututSampleBits = 16,
+				receiveData = [];
+			const encodeWAV = (pcmData) => {
+				const sampleRate = 8000;
+				const sampleBits = 16;
+				const dataLength = pcmData.byteLength;
+				const buffer = new ArrayBuffer(44 + dataLength);
+				const data = new DataView(buffer);
+
+				const channelCount = 1; //单声道
+				let offset = 0;
+
+				const writeString = function (str) {
+					for (let i = 0; i < str.length; i++) {
+						data.setUint8(offset + i, str.charCodeAt(i));
+					}
+				};
+
+				// 资源交换文件标识符
+				writeString('RIFF');
+				offset += 4;
+				// 下个地址开始到文件尾总字节数,即文件大小-8
+				data.setUint32(offset, 36 + dataLength, true);
+				offset += 4;
+				// WAV文件标志
+				writeString('WAVE');
+				offset += 4;
+				// 波形格式标志
+				writeString('fmt ');
+				offset += 4;
+				// 过滤字节,一般为 0x10 = 16
+				data.setUint32(offset, 16, true);
+				offset += 4;
+				// 格式类别 (PCM形式采样数据)
+				// data.setUint16(offset, 1, true); offset += 2;
+				// 格式类别 (G.711 a-law) wav支持多种压缩编码格式
+				data.setUint16(offset, 6, true);
+				offset += 2;
+				// 通道数
+				data.setUint16(offset, channelCount, true);
+				offset += 2;
+				// 采样率,每秒样本数,表示每个通道的播放速度
+				data.setUint32(offset, sampleRate, true);
+				offset += 4;
+				// 波形数据传输率 (每秒平均字节数) 单声道×每秒数据位数×每样本数据位/8
+				data.setUint32(offset, channelCount * sampleRate * (sampleBits / 8), true);
+				offset += 4;
+				// 快数据调整数 采样一次占用字节数 单声道×每样本的数据位数/8
+				data.setUint16(offset, channelCount * (sampleBits / 8), true);
+				offset += 2;
+				// 每样本数据位数
+				data.setUint16(offset, sampleBits, true);
+				offset += 2;
+				// 数据标识符
+				writeString('data');
+				offset += 4;
+				// 采样数据总数,即数据总大小-44
+				data.setUint32(offset, dataLength, true);
+				offset += 4;
+
+				// 数据体
+				// 写入后台传来的采样数据,直接一个字节一个字节写入
+				for (let i = 0; i < dataLength; i++) {
+					data.setInt8(offset, pcmData.getInt8(i));
+					offset++;
+				}
+
+				return new Blob([data], { type: 'audio/wav' });
+			};
+
+			const listen = (data) => {
+				receiveData.push(data);
+				//25包为一秒长度的音频
+				if (receiveData.length === 25) {
+					const totalData = new Blob(receiveData);
+					//通过FileReader来读取相关数据
+					const reader = new FileReader();
+
+					reader.readAsArrayBuffer(totalData);
+					reader.onload = function () {
+						//af是ArrayBuffer字节码类型，af.byteLength是后台返回的字节总数
+						const af = reader.result;
+						//ArrayBuffer是二进制数据，不能直接操作，用DataView（视图）去操作.
+						const data = new DataView(af);
+
+						const currentPlayer = document.createElement('audio');
+
+						currentPlayer.src = window.URL.createObjectURL(encodeWAV(data));
+						currentPlayer.play().catch((error) => {
+							console.error('播放失败');
+						});
+					};
+					//清空旧数据
+					receiveData = [];
+				}
+			};
+
+			const sendData = () => {
+				if (size !== 0) {
+					//二进制文件通过ws上传到服务器
+					const pcmData = encodePCM();
+					if (pcmData) {
+						// const blob = new Blob([pcmData]);
+						//如果websocket连接成功则发送消息
+						if (isConnected) {
+							ws.send(pcmData);
+						}
+					}
+				}
+			};
+			const initWs = (wsUrl) => {
+				try {
+					ws = new WebSocket(wsUrl);
+
+					ws.onopen = () => {
+						isConnected = true;
+						title.innerHTML = 'WebSocket连接成功';
+					};
+					ws.onclose = () => {
+						if (recorder) {
+							recorder.disconnect();
+						}
+						isConnected = false;
+					};
+					ws.onmessage = (e) => {
+						//当接收到的数据为数据流我们才进行播放
+						if (e.data instanceof Blob) {
+							listen(e.data);
+						}
+					};
+				} catch (e) {
+					title.innerHTML = e;
+					console.error('无效地址');
+				}
+			};
+			const combine = () => {
+				// 合并
+				const data = new Float32Array(size);
+				let offset = 0; // 偏移量计算
+				// 将二维数据，转成一维数据
+				for (let i = 0; i < buffer.length; i++) {
+					data.set(buffer[i], offset);
+					offset += buffer[i].length;
+				}
+				//return data;
+
+				//按比例压缩 48K --> 8K 6倍
+				const compression = parseInt('6');
+				const length = data.length / compression;
+				const result = new Float32Array(length);
+				let index = 0,
+					j = 0;
+				while (index < length) {
+					result[index] = data[j];
+					j += compression;
+					index++;
+				}
+				return result;
+			};
+			const encodePCM = () => {
+				const bytes = combine();
+				const sampleBits = oututSampleBits; //16
+				let offset = 0;
+				const dataLength = bytes.length * (sampleBits / 8); //采样位如果是16位，一个自己字节8位，一个采样点要2个字节，所以长度要乘以2，所以dataLength就是字节数
+				const buffer = new ArrayBuffer(dataLength);
+				const data = new DataView(buffer);
+
+				if (dataLength > 65535) {
+					console.error('数据过长：');
+					return;
+				}
+				for (let i = 0; i < bytes.length; i++, offset += 2) {
+					const s = Math.max(-1, Math.min(1, bytes[i]));
+					data.setInt16(offset, s < 0 ? s * 0x8000 : s * 0x7fff, true);
+				}
+				return data;
+			};
+			const init = () => {
+				if (navigator.mediaDevices.getUserMedia) {
+					const constraints = { audio: true }; //此处我们仅开启音频
+					//判断是否有输入设备（麦克风）
+					navigator.mediaDevices.getUserMedia(constraints).then(
+						(stream) => {
+							context = new AudioContext();
+							audioInput = context.createMediaStreamSource(stream);
+							recorder = context.createScriptProcessor(4096, 1, 1);
+
+							//这里监听麦克风实时的数据
+							recorder.onaudioprocess = (e) => {
+								const inputBuffer = e.inputBuffer.getChannelData(0);
+								const data = new Float32Array(inputBuffer);
+								buffer.push(data);
+								size += data.length;
+
+								sendData(); //将数据发送至服务端
+
+								//数据每次发送完将旧数据清空
+								buffer = [];
+								size = 0;
+							};
+						},
+						(err) => {
+							console.error('未发现设备');
+						}
+					);
+				} else {
+					console.error('浏览器不支持');
+				}
+			};
+			wsButton.addEventListener('click', () => {
+				title.innerHTML = '';
+				initWs(input.value);
+			});
+			audioButton.addEventListener('click', () => {
+				init();
+			});
+		</script>
+	</body>
+</html>

@@ -1,0 +1,74 @@
+name: Deploy Lazy-blog Pages
+
+on:
+    # Runs on pushes targeting the `main` branch. Change this to `master` if you're
+    # using the `master` branch as the default branch.
+    push:
+        branches: [main]
+    # Runs on pull
+    pull_request:
+        branches: [main]
+    schedule:
+        - cron: 30 17 * * *
+    # 可以手动执行
+    workflow_dispatch:
+
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+    contents: read
+    pages: write
+    id-token: write
+
+# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
+# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+concurrency:
+    group: pages
+    cancel-in-progress: false
+
+jobs:
+    # Build job
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            # 1、检查代码
+            - name: Checkout
+              uses: actions/checkout@v3
+              with:
+                  fetch-depth: 0 # 默认只拉取分支最近一次的 commit，设为 0 代表拉取所有分支所有提交
+            # 2、安装 PNPM
+            - name: Setup PNPM
+              uses: pnpm/action-setup@v2
+              with:
+                  version: latest
+            # 3.安装Node
+            - name: Setup Node
+              uses: actions/setup-node@v3
+              with:
+                  node-version: 18.18.0
+                  registry-url: https://registry.npmjs.org
+                  cache: pnpm
+            - name: Setup Pages
+              uses: actions/configure-pages@v3
+            # 4.安装依赖
+            - name: Install dependencies
+              run: pnpm install
+            # 5.打包
+            - name: Build
+              run: pnpm build
+            - name: Upload artifact
+              uses: actions/upload-pages-artifact@v2
+              with:
+                  path: dist/lazy-blog
+
+    # Deployment job
+    deploy:
+        environment:
+            name: github-pages
+            url: ${{ steps.deployment.outputs.page_url }}
+        needs: build
+        runs-on: ubuntu-latest
+        name: Deploy
+        steps:
+            - name: Deploy to GitHub Pages
+              id: deployment
+              uses: actions/deploy-pages@v2
