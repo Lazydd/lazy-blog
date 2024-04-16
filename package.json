@@ -1,0 +1,48 @@
+{
+	"name": "lazy-blog",
+	"version": "0.0.1",
+	"type": "module",
+	"description": "lazy-blog.",
+	"main": "index.js",
+	"engines": {
+		"node": "^18.0.0 || >=20.0.0"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/Lazydd/lazy-blog.git"
+	},
+	"scripts": {
+		"dev": "vitepress dev docs",
+		"build": "vitepress build docs",
+		"serve": "vitepress serve docs",
+		"preview": "vitepress preview docs"
+	},
+	"author": "ddlazy",
+	"license": "MIT",
+	"keywords": [
+		"blog"
+	],
+	"devDependencies": {
+		"@ddlazy/utils": "^0.0.7",
+		"@iconify/json": "^2.2.201",
+		"@types/node": "^20.12.7",
+		"@vitejs/plugin-vue-jsx": "^3.1.0",
+		"@vueuse/core": "^10.9.0",
+		"feed": "^4.2.2",
+		"md5": "^2.3.0",
+		"sass": "^1.75.0",
+		"simple-git": "^3.24.0",
+		"unocss": "^0.59.3",
+		"vitepress": "^1.1.0",
+		"vitepress-theme-demoblock-fork": "^3.0.4"
+	},
+	"dependencies": {
+		"medium-zoom": "^1.1.0",
+		"vite": "^5.2.8"
+	},
+	"browserslist": [
+		"> 1%",
+		"last 2 versions",
+		"not dead"
+	]
+}
