@@ -26,7 +26,7 @@ const extraHead =
 					`window.dataLayer = window.dataLayer || [];
 					function gtag(){dataLayer.push(arguments);}
 					gtag('js', new Date());
-				 
+
 					gtag('config', 'G-Z1JVP1P6MT');`,
 				],
 				[
@@ -36,7 +36,7 @@ const extraHead =
 					(function() {
 					  var hm = document.createElement("script");
 					  hm.src = "https://hm.baidu.com/hm.js?3eccaa8a84828bdf267676a4b44f01bb";
-					  var s = document.getElementsByTagName("script")[0]; 
+					  var s = document.getElementsByTagName("script")[0];
 					  s.parentNode.insertBefore(hm, s);
 					})();`,
 				],
@@ -369,6 +369,10 @@ function getGuide() {
 				{
 					text: 'Nvm',
 					link: '/blog/utils/nvm',
+				},
+				{
+					text: 'Fvm',
+					link: '/blog/utils/fvm',
 				},
 				{
 					text: 'Yrm',
