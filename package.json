@@ -24,16 +24,16 @@
 	],
 	"devDependencies": {
 		"@ddlazy/utils": "^0.0.7",
-		"@iconify/json": "^2.2.201",
-		"@types/node": "^20.12.7",
-		"@vitejs/plugin-vue-jsx": "^3.1.0",
-		"@vueuse/core": "^10.9.0",
+		"@iconify/json": "^2.2.260",
+		"@types/node": "^22.7.5",
+		"@vitejs/plugin-vue-jsx": "^4.0.1",
+		"@vueuse/core": "^11.1.0",
 		"feed": "^4.2.2",
 		"md5": "^2.3.0",
 		"sass": "^1.75.0",
-		"simple-git": "^3.24.0",
-		"unocss": "^0.59.3",
-		"vitepress": "^1.1.0",
+		"simple-git": "^3.27.0",
+		"unocss": "^0.63.4",
+		"vitepress": "^1.4.1",
 		"vitepress-theme-demoblock-fork": "^3.0.4"
 	},
 	"dependencies": {
