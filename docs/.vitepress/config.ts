@@ -308,6 +308,15 @@ function getGuide() {
 			],
 		},
 		{
+			text: 'node',
+			items: [
+				{
+					text: 'mqtt',
+					link: '/blog/node/mqtt',
+				},
+			],
+		},
+		{
 			text: 'rust',
 			items: [
 				{

@@ -4,6 +4,8 @@
 
 ## 安装
 
+fvm 有一个可视化的工具`sidekick`，可以再 windows 商店中进行安装
+
 [Github 下载地址](https://github.com/leoafarias/fvm/releases)，我们选择下图红框的文件下载进行安装
 
 <Image src="https://cdn.ddlazy.cn/fastboot/2023/09/05/1693879437/fvm.png"></Image>
