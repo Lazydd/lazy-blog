@@ -8,7 +8,7 @@ fvm 有一个可视化的工具`sidekick`，可以再 windows 商店中进行安
 
 [Github 下载地址](https://github.com/leoafarias/fvm/releases)，我们选择下图红框的文件下载进行安装
 
-<Image src="https://cdn.ddlazy.cn/fastboot/2023/09/05/1693879437/fvm.png"></Image>
+<Image src="https://raw.githubusercontent.com/Lazydd/images/main/202410281018045.png"></Image>
 
 或者使用命令安装
 
@@ -51,7 +51,7 @@ https://mirrors.tuna.tsinghua.edu.cn/flutter
 fvm -v
 ```
 
-<Image src="https://cdn.ddlazy.cn/fastboot/2023/09/05/1693879973/fvm-version.png"></Image>
+<Image src="https://raw.githubusercontent.com/Lazydd/images/main/202410281017856.png"></Image>
 
 ## fvm 命令
 

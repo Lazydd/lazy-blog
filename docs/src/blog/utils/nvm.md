@@ -6,7 +6,7 @@
 
 [Github 下载地址](https://github.com/coreybutler/nvm-windows/releases)，我们选择下图红框的文件下载进行安装
 
-<Image src="https://cdn.ddlazy.cn/fastboot/2023/09/05/1693879437/nvm.png"></Image>
+<Image src="https://raw.githubusercontent.com/Lazydd/images/main/202410281016807.png"></Image>
 
 ## 安装完成后进行配置
 
@@ -25,7 +25,7 @@ npm_mirror: https://npm.taobao.org/mirrors/npm/
 nvm -v
 ```
 
-<Image src="https://cdn.ddlazy.cn/fastboot/2023/09/05/1693879973/nvm-version.png"></Image>
+<Image src="https://raw.githubusercontent.com/Lazydd/images/main/202410281013241.png"></Image>
 
 ## Nvm 命令
 

@@ -99,7 +99,7 @@ docker run -it --name verdaccio -p 4873:4873 \
 
 ## 访问 4837 端口
 
-<Image src="https://cdn.ddlazy.cn/fastboot/2023/09/04/1693837434476/verdaccio-empty.png"></Image>
+<Image src="https://raw.githubusercontent.com/Lazydd/images/main/202410281020100.png"></Image>
 
 ## 进行包发布
 
@@ -108,4 +108,4 @@ npm login
 npm publish
 ```
 
-<Image src="https://cdn.ddlazy.cn/fastboot/2023/09/04/1693837695810/verdaccio-1.png"></Image>
+<Image src="https://raw.githubusercontent.com/Lazydd/images/main/202410281020917.png"></Image>

@@ -14,7 +14,7 @@ comment: false
 
 在 `Github` 中的 `Settings` 中开启 `Discussions`
 
-<Image src="https://cdn.ddlazy.cn/fastboot/2023/09/15/1694757833/discussions.png"></Image>
+<Image src="https://raw.githubusercontent.com/Lazydd/images/main/202410281040388.png"></Image>
 
 ### 配置 `giscus`
 
@@ -22,15 +22,15 @@ comment: false
 
 **1. 输入自己的一个公开的仓库地址，需要[开启 Discussions](/config#开启-discussions)**
 
-<Image src="https://cdn.ddlazy.cn/fastboot/2023/09/15/1694758429/discussions-step-1.png"></Image>
+<Image src="https://raw.githubusercontent.com/Lazydd/images/main/202410281035174.png"></Image>
 
 **2. 设置分类别为 `Announcements`**
 
-<Image src="https://cdn.ddlazy.cn/fastboot/2023/09/15/1694758452/discussions-step-2.png"></Image>
+<Image src="https://raw.githubusercontent.com/Lazydd/images/main/202410281036852.png"></Image>
 
 **3. 将关键部分拷贝出来**
 
-<Image src="https://cdn.ddlazy.cn/fastboot/2023/09/15/1694758470/discussions-step-3.png"></Image>
+<Image src="https://raw.githubusercontent.com/Lazydd/images/main/202410281037278.png"></Image>
 
 **4. 在 `Vue` 中使用则创建一个 `.vue` 文件**
 

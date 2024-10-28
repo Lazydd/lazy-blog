@@ -32,6 +32,6 @@ onMounted(() => {
 .medium-zoom-image {
 	/* width: 100%; */
 	border-radius: 8px;
-	z-index: 21;
+	z-index: 26;
 }
 </style>

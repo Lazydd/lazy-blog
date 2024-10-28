@@ -14,7 +14,7 @@ npm install -g yrm
 yrm --version
 ```
 
-<Image src="https://cdn.ddlazy.cn/fastboot/2023/09/05/1693880880/yrm-version.png"></Image>
+<Image src="https://raw.githubusercontent.com/Lazydd/images/main/202410281011193.png"></Image>
 
 ## Yrm 命令
 

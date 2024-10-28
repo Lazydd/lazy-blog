@@ -2,7 +2,7 @@
 
 仓库管理工具[下载地址](https://git-scm.com/)，我们选择下图红框的文件下载进行安装
 
-<Image src="https://cdn.ddlazy.cn/fastboot/2023/09/05/1693882363/git.png"></Image>
+<Image src="https://raw.githubusercontent.com/Lazydd/images/main/202410281026384.png"></Image>
 
 ## 查看是否安装完成
 
@@ -10,7 +10,7 @@
 git -v
 ```
 
-<Image src="https://cdn.ddlazy.cn/fastboot/2023/09/05/1693883306/git-version.png"></Image>
+<Image src="https://raw.githubusercontent.com/Lazydd/images/main/202410281025205.png"></Image>
 
 ## Git 命令
 
@@ -72,7 +72,7 @@ git rebase <HEAD> -i
 下面命令中 `edit` 为提交文件内容和描述， `reword` 为仅提交描述，不提交文件内容
 :::
 
-<Image src="https://cdn.ddlazy.cn/fastboot/2023/09/05/1693883700/git-rebase-i.png"></Image>
+<Image src="https://raw.githubusercontent.com/Lazydd/images/main/202410281028271.png"></Image>
 
 首先 `i` 进入编辑状态，然后将对应的 `commit` 前面的 `pick` 改成 `edit` ，最后 `:wq` 保存退出
 
@@ -88,9 +88,9 @@ git add <改动文件>
 git commit --amend
 ```
 
-<Image src="https://cdn.ddlazy.cn/fastboot/2023/09/05/1693883931/git-rebase-amend.png"></Image>
+<Image src="https://raw.githubusercontent.com/Lazydd/images/main/202410281028317.png"></Image>
 
-`i` 进入编辑状态，然后修改红框内的描述，最后 `:wq` 保存退出
+`i` 进入编辑状态，然后修改红框内的描述，最后 `:wq` 保存退出，若描述前面为`#`开头，则需在开头加一个空格，即` #`
 
 #### 5. **合并文件**
 
