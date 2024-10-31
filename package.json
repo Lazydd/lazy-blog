@@ -33,7 +33,7 @@
 		"sass": "^1.75.0",
 		"simple-git": "^3.27.0",
 		"unocss": "^0.63.4",
-		"vitepress": "^1.4.1",
+		"vitepress": "^1.4.2",
 		"vitepress-theme-demoblock-fork": "^3.0.4"
 	},
 	"dependencies": {
