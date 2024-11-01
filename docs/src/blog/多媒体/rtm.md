@@ -76,7 +76,7 @@ class RTMClient {
 
 ```
 
-一对一聊天
+## 一对一聊天
 
 ```dart
   static const appid = ''; //申请的appid
