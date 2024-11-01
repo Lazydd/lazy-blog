@@ -329,8 +329,16 @@ function getGuide() {
 			text: '多媒体',
 			items: [
 				{
-					text: '实时语音通信',
+					text: '实时语音通信（js）',
 					link: '/blog/多媒体/实时语音通信',
+				},
+				{
+					text: '即时通讯（flutter）',
+					link: '/blog/多媒体/rtm',
+				},
+				{
+					text: '视频通话（flutter）',
+					link: '/blog/多媒体/rtc',
 				},
 			],
 		},
