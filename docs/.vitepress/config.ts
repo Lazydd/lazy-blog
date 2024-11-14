@@ -138,6 +138,11 @@ export default {
 				activeMatch: '^/blog/',
 			},
 			{
+				text: '算法',
+				link: '/algorithm',
+				activeMatch: '^/algorithm',
+			},
+			{
 				text: '软件',
 				link: '/softWare',
 				activeMatch: '^/softWare',
