@@ -93,9 +93,9 @@ server {
     #请填写绑定证书的域名
     server_name ddlazy.cn;
     #请填写证书文件的相对路径或绝对路径
-    ssl_certificate /etc/nginx/ssl/ddlazy.cn.pem; // [!code ++]
+    ssl_certificate /etc/nginx/ssl/ddlazy.cn.pem; # [!code ++]
     #请填写私钥文件的相对路径或绝对路径
-    ssl_certificate_key /etc/nginx/ssl/ddlazy.cn.key; // [!code ++]
+    ssl_certificate_key /etc/nginx/ssl/ddlazy.cn.key; # [!code ++]
     ssl_session_timeout 5m;
     #请按照以下协议配置
     ssl_protocols TLSv1.1 TLSv1.2 TLSv1.3;
