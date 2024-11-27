@@ -14,9 +14,15 @@
 
 ## 写入配置
 
+失效了，下面是新的
+
+~~node_mirror: https://npm.taobao.org/mirrors/node/~~
+
+~~npm_mirror: https://npm.taobao.org/mirrors/npm/~~
+
 ```txt
-node_mirror: https://npm.taobao.org/mirrors/node/
-npm_mirror: https://npm.taobao.org/mirrors/npm/
+node_mirror: https://npmmirror.com/mirrors/node/
+npm_mirror: https://npmmirror.com/mirrors/npm/
 ```
 
 ## 查看是否安装完成
