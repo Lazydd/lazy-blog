@@ -79,6 +79,7 @@ export default {
 				customClass: 'demoblock-custom',
 			});
 		},
+		math: true,
 		image: {
 			lazyLoading: true,
 		},
@@ -351,8 +352,12 @@ function getGuide() {
 			text: '嵌入式',
 			items: [
 				{
-					text: '蓝牙通信',
-					link: '/blog/嵌入式/蓝牙通信',
+					text: 'C51',
+					link: '/blog/嵌入式/C51',
+				},
+				{
+					text: 'STM32',
+					link: '/blog/嵌入式/STM32',
 				},
 			],
 		},
