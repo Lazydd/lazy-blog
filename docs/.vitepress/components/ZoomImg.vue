@@ -5,14 +5,9 @@ import mediumZoom from 'medium-zoom';
 
 defineOptions({ name: 'ZoomImg' });
 
-withDefaults(
-	defineProps<{
-		src: string;
-	}>(),
-	{
-		src: '',
-	}
-);
+const { src = '' } = defineProps<{
+	src: string;
+}>();
 
 const imgRef = ref();
 
