@@ -146,6 +146,8 @@ const unique = (array, key) => {
 
 ## 树结构的查询（包含其所有父节点）
 
+### 方法一（查询结果包含了自己）（此方法是单个查询）
+
 ```js
 const data = [
 	{
@@ -173,14 +175,25 @@ const data = [
 		key: '2',
 	},
 ];
+
+const fieldNames = {
+	title: 'name',
+	key: 'key',
+	children: 'children',
+};
+
 const list = [];
 const parentKeys = [];
 const flatTree = (data, parentKey) => {
 	for (let i = 0; i < data.length; i++) {
 		const node = data[i];
-		list[node.key] = { key: node.key, name: node.name, parentKey };
-		if (node.children) {
-			flatTree(node.children, node.key);
+		list[node[[fieldNames.key]]] = {
+			key: node[fieldNames.key],
+			name: [fieldNames.title],
+			parentKey,
+		};
+		if (node[fieldNames.children]) {
+			flatTree(node[fieldNames.children], node[fieldNames.key]);
 		}
 	}
 };
@@ -192,9 +205,79 @@ const getParent = (data, key) => {
 
 flatTree(data);
 const arr = Object.values(list);
-const key = arr.find((v) => v.name.includes('d')).key;
+const key = arr.find((v) => v[fieldNames.title].includes('d'))?.key;
 getParent(arr, key);
 console.log(parentKeys); // [ '1-1-1', '1-1', '1' ]
+```
+
+### 方法二（查询结果不包含自己）（此方法是批量查询）
+
+```js
+const t = [
+	{
+		name: 'a',
+		key: '1',
+		children: [
+			{
+				name: 'b',
+				key: '1-1',
+				children: [
+					{
+						name: 'd',
+						key: '1-1-1',
+					},
+				],
+			},
+			{
+				name: 'c',
+				key: '1-2',
+			},
+		],
+	},
+	{
+		name: 'e',
+		key: '2',
+	},
+];
+
+const fieldNames = {
+	title: 'name',
+	key: 'key',
+	children: 'children',
+};
+
+const expandParent = (nodes, keys) => {
+	const stack = nodes.map((node) => ({ node, path: [] }));
+	const visited = new Set();
+	const resultPaths = new Map();
+
+	while (stack.length > 0) {
+		const { node, path } = stack.pop();
+		const currentPath = [...path, node[fieldNames.key ?? 'id']];
+
+		if (keys.has(node[fieldNames.key ?? 'id'])) {
+			resultPaths.set(node[fieldNames.key ?? 'id'], path);
+		}
+
+		if (!visited.has(node[fieldNames.key ?? 'id'])) {
+			visited.add(node[fieldNames.key ?? 'id']);
+			if (node[fieldNames.children ?? 'children']) {
+				for (let child of node[fieldNames.children ?? 'children']) {
+					stack.push({ node: child, path: currentPath });
+				}
+			}
+		}
+	}
+
+	return resultPaths;
+};
+let openSet = new Set([]); //展开的key集合
+let keys = new Set(['1-1-1']);
+
+expandParent(t, keys).forEach((t) => {
+	t.forEach((id) => openSet.add(id));
+});
+console.log(Array.from(openSet)); //[ '1', '1-1' ]
 ```
 
 ## 统计元素出现次数
