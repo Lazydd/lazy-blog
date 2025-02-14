@@ -32,7 +32,7 @@ jobs:
         steps:
             # 1、检查代码
             - name: Checkout
-              uses: actions/checkout@v3
+              uses: actions/checkout@v4.2.2
               with:
                   fetch-depth: 0 # 默认只拉取分支最近一次的 commit，设为 0 代表拉取所有分支所有提交
             # 2、安装 PNPM
@@ -42,13 +42,13 @@ jobs:
                   version: latest
             # 3.安装Node
             - name: Setup Node
-              uses: actions/setup-node@v3
+              uses: actions/setup-node@v4.2.0
               with:
                   node-version: 18.18.0
                   registry-url: https://registry.npmjs.org
                   cache: pnpm
             - name: Setup Pages
-              uses: actions/configure-pages@v3
+              uses: actions/configure-pages@v5.0.0
             # 4.安装依赖
             - name: Install dependencies
               run: pnpm install
@@ -56,7 +56,7 @@ jobs:
             - name: Build
               run: pnpm build
             - name: Upload artifact
-              uses: actions/upload-pages-artifact@v2
+              uses: actions/upload-pages-artifact@v3.0.1
               with:
                   path: dist/lazy-blog
 
@@ -71,4 +71,4 @@ jobs:
         steps:
             - name: Deploy to GitHub Pages
               id: deployment
-              uses: actions/deploy-pages@v2
+              uses: actions/deploy-pages@v4.0.5
