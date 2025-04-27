@@ -16,9 +16,9 @@
 
 失效了，下面是新的
 
-~~node_mirror: https://npm.taobao.org/mirrors/node/~~
+<del><code>node_mirror: https://npm.taobao.org/mirrors/node/</code></del>
 
-~~npm_mirror: https://npm.taobao.org/mirrors/npm/~~
+<del><code>npm_mirror: https://npm.taobao.org/mirrors/npm/</code></del>
 
 ```txt
 node_mirror: https://npmmirror.com/mirrors/node/
