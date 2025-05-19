@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useData } from 'vitepress';
-import { computed, ref, onMounted, reactive, toRefs } from 'vue';
+import { computed, ref, onMounted, reactive, toRefs, useTemplateRef } from 'vue';
 
 import { countWord, formatShowDate } from '@ddlazy/utils';
 
@@ -21,7 +21,7 @@ const { author, date } = toRefs(data);
 
 const hiddenTime = computed(() => frontmatter.value.date === false);
 
-const $des = ref<HTMLDivElement>();
+const desRef = useTemplateRef<HTMLDivElement>('des');
 const timeTitle = computed(() => (frontmatter.value.date ? '发布时间' : '最近修改时间'));
 
 const showAnalyze = computed(
@@ -51,7 +51,7 @@ const readTime = computed(() => {
 const publishDate = computed(() => formatShowDate(date.value));
 
 const analyze = () => {
-	if (!$des.value) {
+	if (!desRef.value) {
 		return;
 	}
 	document.querySelectorAll('.meta-des').forEach((v) => v.remove());
@@ -65,7 +65,7 @@ const analyze = () => {
 	const words = docDomContainer?.querySelector('.content-container .main')?.textContent || '';
 	wordCount.value = countWord(words);
 
-	docDomContainer?.querySelector('h1')?.after($des.value!);
+	docDomContainer?.querySelector('h1')?.after(desRef.value!);
 };
 
 onMounted(() => {
@@ -96,7 +96,7 @@ onMounted(() => {
 			预计：{{ readTime }} 分钟
 		</span>
 	</div>
-	<div class="meta-des" ref="$des" id="hack-article-des">
+	<div class="meta-des" ref="des" id="hack-article-des">
 		<span v-if="author" class="author">
 			<UserFilled title="本文作者" />
 			{{ author }}

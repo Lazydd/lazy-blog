@@ -27,7 +27,7 @@
 		"@iconify/json": "^2.2.336",
 		"@types/node": "^22.15.17",
 		"@vitejs/plugin-vue-jsx": "^4.1.2",
-		"@vueuse/core": "^13.1.0",
+		"@vueuse/core": "^13.2.0",
 		"feed": "^5.0.0",
 		"md5": "^2.3.0",
 		"sass": "^1.75.0",
@@ -40,7 +40,7 @@
 		"markdown-it-mathjax3": "^4.3.2",
 		"medium-zoom": "^1.1.0",
 		"vite": "^6.3.5",
-		"vue": "^3.5.13"
+		"vue": "^3.5.14"
 	},
 	"browserslist": [
 		"> 1%",
