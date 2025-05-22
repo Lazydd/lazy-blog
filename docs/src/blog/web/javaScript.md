@@ -406,3 +406,23 @@ const getWindow = () => {
 	return { width, height };
 };
 ```
+
+### MD5 **_`CryptoJS`_**
+
+```js
+const uint8Array = new Uint8Array(arrayBuffer);
+const rawData = uint8Array.subarray(24);
+const wordArray = bufferToWordArray(rawData);//CryptoJS不支持buffer，所以要自己构建下
+const actualMD5 = CryptoJS.MD5(wordArray).toString();
+```
+
+```js
+const bufferToWordArray = (arrayBuffer) => {
+	const u8 = new Uint8Array(arrayBuffer);
+	const words: any = [];
+	for (let i = 0; i < u8.length; i += 4) {
+		words.push((u8[i] << 24) | (u8[i + 1] << 16) | (u8[i + 2] << 8) | u8[i + 3]);
+	}
+	return CryptoJS.lib.WordArray.create(words, u8.length);
+};
+```
