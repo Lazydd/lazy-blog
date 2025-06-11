@@ -387,3 +387,106 @@ const run = (func) => {
 
 run(main);
 ```
+
+## worker 进行大文件分片上传
+
+```vue
+<script setup lang="ts">
+const fileChange = async (event) => {
+	const file = event.target.files[0];
+	if (file) {
+		const chunks = await cutFile(file);
+		console.log(chunks); //此处得到要上传的文件
+	}
+};
+
+const CHUNK_SIZE = 5 * 1024 * 1024; // 5MB 分片大小
+const THREAD_COUNT = navigator.hardwareConcurrency || 4; // 获取硬件线程数，默认为4
+
+const cutFile = (file: File) => {
+	return new Promise((resolve) => {
+		const chunkCount = Math.ceil(file.size / CHUNK_SIZE); //分片数量
+		const threadChunkCount = Math.ceil(chunkCount / THREAD_COUNT); //每个线程处理的分片数量
+
+		const result: any[] = [];
+		let finshCount = 0;
+
+		for (let i = 0; i < THREAD_COUNT; i++) {
+			const worker = new Worker(new URL('./worker.js', import.meta.url), {
+				type: 'module', // 让worker模块化，可以通过import引入一些别的代码
+			});
+			let start = i * threadChunkCount;
+			let end = Math.min((i + 1) * threadChunkCount, chunkCount);
+			worker.postMessage({
+				file,
+				start,
+				end,
+				chunkSize: CHUNK_SIZE,
+			});
+			worker.onmessage = (e) => {
+				worker.terminate();
+				result[i] = e.data;
+				finshCount++;
+				if (finshCount === THREAD_COUNT) resolve(result.flat());
+			};
+		}
+	});
+};
+</script>
+
+<template>
+	<input type="file" ref="fileInput" @change="fileChange" />
+</template>
+
+<style>
+.container {
+	display: flex;
+	flex-direction: column;
+	height: 100vh;
+	width: 100%;
+	background-color: #000000;
+	canvas {
+		flex: 1;
+		height: 100%;
+		width: 100%;
+	}
+}
+</style>
+```
+
+```js
+//worker.js
+import SparkMD5 from 'spark-md5-es';
+
+onmessage = async (e) => {
+	const { file, start, end, chunkSize } = e.data;
+	const result = [];
+	for (let i = start; i < end; i++) {
+		const p = creatChunk(file, i, chunkSize);
+		result.push(p);
+	}
+	const chunks = await Promise.all(result);
+	postMessage(chunks);
+};
+
+const creatChunk = (file, index, chunkSize) => {
+	return new Promise((resolve) => {
+		const start = index * chunkSize;
+		const end = start + chunkSize;
+		const spark = new SparkMD5.ArrayBuffer();
+		const fileReader = new FileReader();
+		const blob = file.slice(start, end);
+		fileReader.onload = (e) => {
+			spark.append(e.target?.result);
+			resolve({
+				start,
+				end,
+				index,
+				blob,
+				hash: spark.end(),
+			});
+		};
+		fileReader.readAsArrayBuffer(blob);
+	});
+};
+```
