@@ -23,6 +23,62 @@ const range = ref(100)
 }
 ```
 
+## 抖音loading
+
+<div class="loading-box">
+	<div class="RhI70WHf" />
+</div>
+
+<style lang="scss">
+.loading-box {
+	position: relative;
+	background-color: black;
+}
+.RhI70WHf {
+	width: 48px;
+	height: 48px;
+	background-image: url(https://p-pc-weboff.byteimg.com/tos-cn-i-9r5gewecjs/a795fb49bcbcf8cb1c762a69d57aee48.png);
+	background-size: 48px;
+	font-size: 0;
+	animation: 1s steps(60, start) infinite RhI70WHf;
+	display: inline-block;
+	transform: scale(0.7);
+}
+@keyframes RhI70WHf {
+	100% {
+	    background-position-y: -2880px;
+	}
+}
+</style>
+
+```html
+<div class="loading-box">
+	<div class="RhI70WHf" />
+</div>
+```
+
+```css
+.loading-box {
+	position: relative;
+	background-color: black;
+}
+.RhI70WHf {
+	width: 48px;
+	height: 48px;
+	background-image: url(https://p-pc-weboff.byteimg.com/tos-cn-i-9r5gewecjs/a795fb49bcbcf8cb1c762a69d57aee48.png);
+	background-size: 48px;
+	font-size: 0;
+	animation: 1s steps(60, start) infinite RhI70WHf;
+	display: inline-block;
+	transform: scale(0.7);
+}
+@keyframes RhI70WHf {
+	100% {
+	    background-position-y: -2880px;
+	}
+}
+```
+
 ## 篮球
 
 <div class="ball-box">
