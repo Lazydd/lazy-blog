@@ -311,6 +311,10 @@ function getGuide() {
 					text: 'axios',
 					link: '/blog/web/axios',
 				},
+				{
+					text: 'flutter',
+					link: '/blog/web/flutter',
+				},
 			],
 		},
 		{
