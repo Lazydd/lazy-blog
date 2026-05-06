@@ -30,3 +30,5 @@ Detailed changes for each release are documented in the [CHANGELOG](https://lazy
 ## LICENSE
 
 [MIT](https://github.com/ElemeFE/element/blob/dev/LICENSE)
+
+![My GitHub Game](game.gif)
