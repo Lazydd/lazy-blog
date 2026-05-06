@@ -429,6 +429,10 @@ const bufferToWordArray = (arrayBuffer) => {
 
 ### 生成唯一ID **_`crypto`_**
 
+:::danger 警告
+仅支持https环境
+:::
+
 ```js
 const uniqueId = crypto.randomUUID(); //3a6c4b2a-4c26-4d0f-a4b7-3b1a2b3c4d5e
 ```
