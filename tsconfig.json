@@ -1,9 +1,11 @@
 {
 	"compilerOptions": {
 		"outDir": "dist",
+		"rootDir": "./packages",
 		"target": "esnext",
 		"module": "esnext",
-		"moduleResolution": "node",
+		"moduleResolution": "bundler",
+		"ignoreDeprecations": "6.0",
 		"esModuleInterop": true,
 		"resolveJsonModule": true,
 		"allowJs": true,

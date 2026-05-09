@@ -137,27 +137,6 @@ const range = ref(100)
 }
 ```
 
-## 文字滚动
-
-<marquee behavior="scroll" direction="left" scrollamount="6" onmouseover="this.stop()"
-            onmouseout="this.start()">
-<span>
-测试文字
-</span>
-</marquee>
-
-```html
-<marquee
-	behavior="scroll"
-	direction="left"
-	scrollamount="6"
-	onmouseover="this.stop()"
-	onmouseout="this.start()"
->
-	<span>测试文字</span>
-</marquee>
-```
-
 ## 文字特效
 
 <div class="text-demo">啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊</div>

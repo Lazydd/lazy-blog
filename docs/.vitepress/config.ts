@@ -13,34 +13,34 @@ import type { SiteConfig } from 'vitepress';
 const extraHead =
 	process.env.NODE_ENV === 'production'
 		? [
-				[
-					'script',
-					{
-						async: '',
-						src: 'https://www.googletagmanager.com/gtag/js?id=G-Z1JVP1P6MT',
-					},
-				],
-				[
-					'script',
-					{},
-					`window.dataLayer = window.dataLayer || [];
+			[
+				'script',
+				{
+					async: '',
+					src: 'https://www.googletagmanager.com/gtag/js?id=G-Z1JVP1P6MT',
+				},
+			],
+			[
+				'script',
+				{},
+				`window.dataLayer = window.dataLayer || [];
 					function gtag(){dataLayer.push(arguments);}
 					gtag('js', new Date());
 
 					gtag('config', 'G-Z1JVP1P6MT');`,
-				],
-				[
-					'script',
-					{},
-					`var _hmt = _hmt || [];
+			],
+			[
+				'script',
+				{},
+				`var _hmt = _hmt || [];
 					(function() {
 					  var hm = document.createElement("script");
 					  hm.src = "https://hm.baidu.com/hm.js?3eccaa8a84828bdf267676a4b44f01bb";
 					  var s = document.getElementsByTagName("script")[0];
 					  s.parentNode.insertBefore(hm, s);
 					})();`,
-				],
-		  ]
+			],
+		]
 		: [];
 
 const [changeLog] = await Promise.all([getChangeLog(800)]);
@@ -73,7 +73,7 @@ export default {
 	},
 	markdown: {
 		// lineNumbers: true,//行号
-		config(md) {
+		config(md: any) {
 			md.use(headerPlugin);
 			md.use(demoblockPlugin, {
 				customClass: 'demoblock-custom',
@@ -88,7 +88,7 @@ export default {
 		template: {
 			ssr: true,
 			compilerOptions: {
-				isCustomElement: (tag) => customElements.includes(tag),
+				isCustomElement: (tag: string) => customElements.includes(tag),
 			},
 		},
 	},
