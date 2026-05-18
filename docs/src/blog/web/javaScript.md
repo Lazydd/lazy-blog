@@ -351,35 +351,33 @@ const copyText = async (text) => await navigator.clipboard.writeText(text);
 copyText('writeText');
 ```
 
-### 图片懒加载 **_`getBoundClientRect `_**
+### 图片懒加载 **_`IntersectionObserver`_**
+
+```html
+<img data-src="real-image.jpg" class="lazy" alt="加载中..." />
+<img data-src="real-image2.jpg" class="lazy" alt="加载中..." />
+```
 
 ```js
-let imgList = [...document.querySelectorAll('img')];
-let length = imgList.length;
+const images = document.querySelectorAll(".lazy");
 
-// 修正错误，需要加上自执行
-const imgLazyLoad = (function () {
-	let count = 0;
-
-	return function () {
-		let deleteIndexList = [];
-		imgList.forEach((img, index) => {
-			let rect = img.getBoundingClientRect();
-			if (rect.top < window.innerHeight) {
-				img.src = img.dataset.src;
-				deleteIndexList.push(index);
-				count++;
-				if (count === length) {
-					document.removeEventListener('scroll', imgLazyLoad);
-				}
+const observer = new IntersectionObserver(
+	(entries) => {
+		entries.forEach((entry) => {
+			if (entry.isIntersecting) {
+				const img = entry.target;
+				img.src = img.dataset.src; // 加载真实图片
+				img.classList.remove("lazy"); // 移除占位符样式
+				observer.unobserve(img); // 加载完停止观察
 			}
 		});
-		imgList = imgList.filter((img, index) => !deleteIndexList.includes(index));
-	};
-})();
+	},
+	{
+		rootMargin: "100px", // 提前 100px 开始加载
+	},
+);
 
-// 这里最好加上防抖处理
-document.addEventListener('scroll', imgLazyLoad);
+images.forEach((img) => observer.observe(img));
 ```
 
 ### 下载文件 **_`createObjectURL`_**
