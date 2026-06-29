@@ -1,4 +1,4 @@
 allowBuilds:
-  esbuild: false
-  vitepress-theme-demoblock-fork: false
-  vue-demi: false
+  esbuild: true
+  vitepress-theme-demoblock-fork: true
+  vue-demi: true
