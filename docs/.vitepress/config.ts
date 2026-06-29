@@ -318,6 +318,15 @@ function getGuide() {
 			],
 		},
 		{
+			text: 'java',
+			items: [
+				{
+					text: 'maven',
+					link: '/blog/java/maven',
+				},
+			],
+		},
+		{
 			text: 'node',
 			items: [
 				{
