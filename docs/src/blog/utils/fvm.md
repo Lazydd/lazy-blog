@@ -42,7 +42,7 @@ E:\fvm
 
 ```txt
 FLUTTER_STORAGE_BASE_URL
-https://mirrors.tuna.tsinghua.edu.cn/flutter
+https://mirror.nju.edu.cn/flutter/
 ```
 
 ## 查看是否安装完成
