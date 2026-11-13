@@ -1,4 +1,5 @@
 allowBuilds:
+  '@parcel/watcher': false
   esbuild: true
   vitepress-theme-demoblock-fork: true
   vue-demi: true

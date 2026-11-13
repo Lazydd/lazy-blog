@@ -1,7 +1,7 @@
 import md5 from 'md5';
-import Git from 'simple-git';
+import { simpleGit } from 'simple-git';
 import type { CommitInfo, ContributorInfo } from './types/changelog';
-const git = Git({
+const git = simpleGit({
 	maxConcurrentProcesses: 200,
 });
 
